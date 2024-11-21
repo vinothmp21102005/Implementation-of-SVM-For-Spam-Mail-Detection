@@ -8,17 +8,18 @@ To write a program to implement the SVM For Spam Mail Detection.
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1.Import the necessary python packages using import statements.
 
-2.Read the given csv file using read_csv() method and print the number of contents to be displayed using df.head().
+1. Read the CSV file and detect its encoding to ensure proper data loading.
 
-3.Split the dataset using train_test_split.
+2.Load the data into a DataFrame and inspect it to understand its structure and contents
 
-4.Calculate Y_Pred and accuracy.
+3.Extract features (X) and labels (y) from the DataFrame. Here, v2 is the message text, and v1 is the label indicating whether the message is spam or not.
 
-5.Print all the outputs.
+4.Split the data into training and testing sets to evaluate the model's performance.
 
-6.End the Program.
+5.Convert the text data into numerical data using CountVectorizer, which transforms the text into a matrix of token counts.
+
+6.Train the SVM model on the training data and evaluate its accuracy on the test data.
 
 ## Program:
 ```
@@ -34,18 +35,21 @@ result
 
 import pandas as pd
 data=pd.read_csv("spam.csv",encoding='windows-1252')
+
+
 data.head()
 data.info()
 data.isnull().sum()
 
-x=data["v1"].values
-y=data["v2"].values
+x=data["v2"].values
+y=data["v1"].values
 
 from sklearn.model_selection import train_test_split
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
 
 from sklearn.feature_extraction.text import CountVectorizer
 cv=CountVectorizer()
+
 x_train=cv.fit_transform(x_train)
 x_test=cv.transform(x_test)
 
@@ -58,7 +62,6 @@ y_pred
 from sklearn.metrics import accuracy_score
 acc=accuracy_score(y_test,y_pred)
 acc
-
 
 
 
@@ -78,10 +81,10 @@ acc
 ![image](https://github.com/user-attachments/assets/d5f2de14-34de-4a6b-a3db-0a7ee283d451)
 
 ### Prediction of y:
-![image](https://github.com/user-attachments/assets/c88796f9-99ab-492f-835b-460e7eea06b3)
+![image](https://github.com/user-attachments/assets/ac26701d-27e6-4d43-b0c2-96adad8b97ac)
 
 ### Accuracy:
-![image](https://github.com/user-attachments/assets/95288e43-ac2a-4515-8adb-f312844cede0)
+![image](https://github.com/user-attachments/assets/994ee6e0-6c4f-45cc-b051-ab63f6d013b1)
 
 
 ## Result:
